@@ -8,4 +8,4 @@ target/
 .project
 .classpath
 bin/
-node_modules/
+node_modules/frontend/
