@@ -41,6 +41,7 @@ public class ProductController {
             return ResponseEntity.badRequest().body(createErrorResponse(validationError));
         }
 
+        product.setId(null);
         Product saved = productRepository.save(product);
         return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
@@ -67,12 +68,13 @@ public class ProductController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteProduct(@PathVariable Long id) {
-        if (productRepository.existsById(id)) {
-            productRepository.deleteById(id);
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(createErrorResponse("Product not found with ID: " + id));
+        return productRepository.findById(id)
+                .<ResponseEntity<?>>map(product -> {
+                    productRepository.delete(product);
+                    return ResponseEntity.noContent().build();
+                })
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body(createErrorResponse("Product not found with ID: " + id)));
     }
 
     private String validateProduct(Product product) {
