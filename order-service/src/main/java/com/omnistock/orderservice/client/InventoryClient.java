@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 @FeignClient(name = "inventory-service")
 public interface InventoryClient {
 
-    @PutMapping("/inventory/{id}/deduct")
-    void deductStock(@PathVariable("id") Long id, @RequestParam("quantity") Integer quantity);
+    @PutMapping("/inventory/product/{productId}/deduct")
+    void deductStock(@PathVariable("productId") Long productId, @RequestParam("quantity") Integer quantity);
 }

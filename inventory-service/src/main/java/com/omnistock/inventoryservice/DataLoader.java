@@ -16,10 +16,12 @@ public class DataLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        inventoryRepository.save(new Inventory(1L, "Laptop Pro 15", 50, 10));
-        inventoryRepository.save(new Inventory(2L, "Wireless Mouse", 500, 50));
-        inventoryRepository.save(new Inventory(3L, "Mechanical Keyboard", 8, 10));
-        inventoryRepository.save(new Inventory(4L, "4K Monitor 27\"", 75, 15));
-        System.out.println(">>> Sample inventory loaded successfully!");
+        if (inventoryRepository.count() == 0) {
+            inventoryRepository.save(new Inventory(1L, "Laptop Pro 15", 50, 10));
+            inventoryRepository.save(new Inventory(2L, "Wireless Mouse", 500, 50));
+            inventoryRepository.save(new Inventory(3L, "Mechanical Keyboard", 8, 10));
+            inventoryRepository.save(new Inventory(4L, "4K Monitor 27\"", 75, 15));
+            System.out.println(">>> Sample inventory loaded successfully!");
+        }
     }
 }

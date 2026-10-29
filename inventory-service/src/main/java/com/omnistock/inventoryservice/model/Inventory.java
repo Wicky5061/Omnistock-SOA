@@ -1,10 +1,6 @@
 package com.omnistock.inventoryservice.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "inventory")
@@ -13,7 +9,10 @@ public class Inventory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "product_id", unique = true, nullable = false)
     private Long productId;
+
     private String productName;
     private Integer stockQuantity;
     private Integer lowStockThreshold;
